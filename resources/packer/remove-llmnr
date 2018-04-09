@@ -1,4 +1,0 @@
-#!/bin/bash -eux
-
-# From https://bbs.archlinux.org/viewtopic.php?id=187986
-echo "LLMNR=no" >> /etc/systemd/resolved.conf

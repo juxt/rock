@@ -1,0 +1,38 @@
+{
+    "variables": {},
+    "builders": [
+        {
+            "profile": "mask",
+            "region": "eu-west-1"
+        },
+        {
+            "type": "amazon-ebs",
+            "region": "eu-west-1",
+            "source_ami": "ami-0b8ec472",
+            "instance_type": "t2.small",
+            "ssh_username": "root",
+            "ami_name": "juxt-arch-{{timestamp}}"
+        },
+        {
+            "ami_groups": ["all"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/install-base.sh"
+        },
+        {
+            "type": "file",
+            "source": "/etc/timesyncd.conf",
+            "destination": "/etc/timesyncd.conf"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/remove-llmnr.sh"
+        }
+    ],
+    "post-processors": [
+        "vagrant"
+    ]
+}
