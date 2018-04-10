@@ -1,3 +1,7 @@
-**/.cpcache
-**/.nrepl-port
-**/target
+*.box
+*.deb
+*.pem
+*.tar.*
+/share/**/.SRCINFO
+/share/**/pkg
+/share/**/src
