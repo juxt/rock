@@ -17,17 +17,13 @@ chmod 644 /etc/makepkg.conf
 # -----------------------------------------------------------------------------
 # Rock user
 
-# Group for running pacman commands without needing to enter a password.
-groupadd build
-
 # We need a user to make packages later as Arch doesn't like you building
-# packages as root.
-#
-# Also, we don't want to SSH in as root, so need a user to default to.
+# packages as root. The wheel group gives us passwordless sudo via the `sudoers`
+# file we install.
 useradd \
     --create-home \
     --shell /usr/bin/bash \
-    --groups "wheel,build" \
+    --groups "wheel" \
     rock
 
 # -----------------------------------------------------------------------------
