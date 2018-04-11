@@ -5,3 +5,5 @@
 /share/**/.SRCINFO
 /share/**/pkg
 /share/**/src
+/terraform/.terraform
+/terraform/proposed.plan
