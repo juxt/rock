@@ -2,6 +2,8 @@
 *.deb
 *.pem
 *.tar.*
+*.tfstate
+*.tfstate.backup
 /share/**/.SRCINFO
 /share/**/pkg
 /share/**/src
