@@ -13,11 +13,10 @@ data "aws_ami" "rock" {
   filter {
     name = "name"
 
-    # Maybe we should rename the AMI to `juxt-rock`?
-    values = ["juxt-arch-*"]
+    values = ["juxt-rock-*"]
   }
 
-  owners = ["375332021361"]
+  owners = ["639331413963"]
 }
 
 data "template_file" "user_data" {
