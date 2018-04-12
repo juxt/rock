@@ -81,6 +81,7 @@ build_pkgs
 # Install
 install_pkgs \
     codedeploy-agent \
+    journald-cloud-watch-script \
     systemd-cloud-watch
 
 # To install any packages from the AUR can now be done like so:

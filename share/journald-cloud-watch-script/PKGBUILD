@@ -1,0 +1,28 @@
+# Maintainer: James Conroy-Finn <james@invetica.co.uk>
+pkgname=journald-cloud-watch-script
+pkgver=0.1
+pkgrel=1
+pkgdesc="Bash script used to forward logs."
+arch=('i686' 'x86_64')
+url="https://github.com/juxt/rock"
+license=('GPL')
+groups=()
+depends=('aws-cli' 'bash' 'jq')
+source=(tail-journald
+        journald-cloud-watch-script.service)
+md5sums=('8907d8a5eadddd7c36730b4e7eff0f11'
+         '957ed4f7b25b8246aa518aee1474a20e')
+
+package() {
+  cd "$srcdir"
+
+  install -Dm755 \
+      "${srcdir}"/tail-journald \
+      "${pkgdir}"/usr/bin/tail-journald
+
+  install -Dm744 \
+      "${srcdir}"/journald-cloud-watch-script.service \
+      "${pkgdir}"/usr/lib/systemd/system/journald-cloud-watch-script.service
+}
+
+# vim:set ts=2 sw=2 et:
