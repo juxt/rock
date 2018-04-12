@@ -1,6 +1,7 @@
 {
     "_comment": "Keys prefixed with an underscore are comments.",
     "variables": {
+        "commit_ref": "none",
         "juxt_pkg_dir": "/var/lib/juxt-pkgbuilds",
         "juxt_repo_dir": "/var/cache/pacman/juxt"
     },
@@ -11,7 +12,7 @@
             "source_ami": "ami-0b8ec472",
             "instance_type": "t2.small",
             "ssh_username": "root",
-            "ami_name": "juxt-arch-{{timestamp}}"
+            "ami_name": "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"
         }
     ],
     "provisioners": [
