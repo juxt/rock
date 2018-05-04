@@ -1,3 +1,11 @@
-**/.cpcache
-**/.nrepl-port
-**/target
+*.box
+*.deb
+*.pem
+*.tar.*
+*.tfstate
+*.tfstate.backup
+/share/**/.SRCINFO
+/share/**/pkg
+/share/**/src
+/terraform/.terraform
+/terraform/proposed.plan

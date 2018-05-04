@@ -1,4 +1,5 @@
-# Maintainer: James Conroy-Finn <james@invetica.co.uk>
+# Maintainer: JUXT <info@juxt.pro>
+# Contributor: James Conroy-Finn <james@invetica.co.uk>
 pkgname=codedeploy-agent
 pkgver=1.0_1.1458
 pkgrel=1
@@ -16,14 +17,6 @@ prepare() {
   cd "$srcdir"
   tar -xf data.tar.gz
 }
-
-# build() {
-#   cd "$srcdir"
-# }
-
-# check() {
-#   cd "$srcdir"
-# }
 
 package() {
   cd "$srcdir"

@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+INSTANCE_ID="${INSTANCE_ID:-$(curl -s http://169.254.169.254/latest/meta-data/instance-id)}"
+AWS_REGION="${AWS_REGION:-$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)}"
+LOG_GROUP_NAME="${LOG_GROUP_NAME:-rock}"
+LOG_STREAM_NAME="$(hostname)"
+
+AWS_CURSOR_FILE="/var/lib/journald-cloud-watch-script/aws-cursor"
+JOURNAL_CURSOR_FILE="/var/lib/journald-cloud-watch-script/journal-cursor"
+
+mkdir -p "/var/lib/journald-cloud-watch-script"
+
+BATCH_SIZE=50
+
+fetch_current_cursor () {
+    aws logs describe-log-streams \
+        --region="$AWS_REGION" \
+        --log-group-name="$LOG_GROUP_NAME" \
+        --log-stream-name-prefix="$LOG_STREAM_NAME" |\
+        jq -r ".logStreams[0].uploadSequenceToken // empty"
+}
+
+create_or_get_current_cursor () {
+    current=$(fetch_current_cursor)
+    if [[ $current ]]; then
+        echo $current > $AWS_CURSOR_FILE
+    else
+        aws logs create-log-stream \
+            --region=$AWS_REGION \
+            --log-group-name=$LOG_GROUP_NAME \
+            --log-stream-name=$LOG_STREAM_NAME
+    fi
+}
+
+journal_cursor_rows () {
+    if [[ $(cat $JOURNAL_CURSOR_FILE) ]]; then
+        rows=$(journalctl -a -n $BATCH_SIZE -o json \
+            --after-cursor "$(cat $JOURNAL_CURSOR_FILE)")
+    else
+        rows=$(journalctl -a -n $BATCH_SIZE -o json)
+    fi
+    cursor=$(echo $rows | jq -s -r ". | .[-1].__CURSOR // empty")
+    if [[ $cursor ]]; then
+        echo $cursor > $JOURNAL_CURSOR_FILE
+    fi
+    echo $rows
+}
+
+format_row () {
+    jq "{timestamp: $(date +%s%3N), message: @json}"
+}
+
+write_batch () {
+    rows=$(journal_cursor_rows)
+    if [[ -z $rows ]]; then
+        sleep 1
+        return 0
+    fi
+
+    BATCH=$(echo "$rows" |\
+        format-row |\
+        jq -s .)
+    if [[ $(cat $AWS_CURSOR_FILE) ]]; then
+        sequence_token="--sequence-token=$(cat $AWS_CURSOR_FILE)"
+    else
+        sequence_token=""
+    fi
+    aws logs put-log-events \
+        --region="$AWS_REGION" \
+        --log-group-name="$LOG_GROUP_NAME" \
+        --log-stream-name="$LOG_STREAM_NAME" \
+        "$sequence_token" \
+        --log-events="$BATCH" |\
+        jq -r ".nextSequenceToken" > "$AWS_CURSOR_FILE"
+}
+
+touch $AWS_CURSOR_FILE
+touch $JOURNAL_CURSOR_FILE
+create_or_get_current_cursor
+while true; do
+    write_batch
+done
