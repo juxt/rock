@@ -1,5 +1,10 @@
 = Rock
 
+[source]
+----
+AWS_PROFILE=<profile> make
+----
+
 == Copyright & License
 
 The MIT License (MIT)
