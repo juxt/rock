@@ -8,8 +8,8 @@
     "builders": [
         {
             "type": "amazon-ebs",
-            "region": "eu-west-1",
-            "source_ami": "ami-0b8ec472",
+            "region": "eu-west-2",
+            "source_ami": "ami-210be846",
             "instance_type": "t2.small",
             "ssh_username": "root",
             "ami_name": "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"
