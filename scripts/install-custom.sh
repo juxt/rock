@@ -37,6 +37,7 @@ install_pkgs \
 # We skip the PGP check because we won't have AladW's GPG key at this point.
 #
 # TODO Pull in GPG key and use it to check package.
+chown -R rock "$AURUTILS_DIR"
 su --preserve-environment -c 'makepkg --skippgpcheck' rock
 
 # We could install the build package immediately with `pacman -U` at this point,
@@ -55,7 +56,8 @@ rm -rf "$AURUTILS_DIR"
 # Custom packages
 
 # Recursively set permissions so `Makefile` et al can be found by the rock user.
-chown -R root:wheel "$PKG_DIR"
+chown -R rock "$PKG_DIR"
+
 chmod -R 774 "$PKG_DIR"
 
 # This is the directory in the juxt/rock repo with all the directories
@@ -69,10 +71,6 @@ cd "$PKG_DIR"
 # We use make because we can avoid all the shell escaping trouble with something
 # like using `find` and redirecting output.
 su --preserve-environment -c 'make' rock
-
-# Restore permissions.
-chown -R root:wheel "$PKG_DIR"
-chmod -R 774 "$PKG_DIR"
 
 # Now we find all the packages and write a manifest of the directories
 # containing package definitions.
