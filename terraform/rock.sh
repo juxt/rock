@@ -16,3 +16,6 @@ EOF
 #
 # Fix is in this PR: https://github.com/advantageous/systemd-cloud-watch/pull/16
 # systemctl start systemd-cloud-watch
+
+# Fortunately there's an alternative bash script
+systemctl start journald-cloud-watch-script
