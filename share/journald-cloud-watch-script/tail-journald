@@ -60,7 +60,7 @@ write_batch () {
     fi
 
     BATCH=$(echo "$rows" |\
-        format-row |\
+        format_row |\
         jq -s .)
     if [[ $(cat $AWS_CURSOR_FILE) ]]; then
         sequence_token="--sequence-token=$(cat $AWS_CURSOR_FILE)"
