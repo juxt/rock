@@ -10,7 +10,7 @@ groups=()
 depends=('aws-cli' 'bash' 'jq')
 source=(tail-journald
         journald-cloud-watch-script.service)
-md5sums=('8907d8a5eadddd7c36730b4e7eff0f11'
+md5sums=('3aae47c41ec1493ccce91611fb52dd6e'
          '957ed4f7b25b8246aa518aee1474a20e')
 
 package() {
