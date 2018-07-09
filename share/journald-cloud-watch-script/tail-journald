@@ -30,7 +30,8 @@ create_or_get_current_cursor () {
         aws logs create-log-stream \
             --region=$AWS_REGION \
             --log-group-name=$LOG_GROUP_NAME \
-            --log-stream-name=$LOG_STREAM_NAME
+            --log-stream-name=$LOG_STREAM_NAME \
+            || return 0
     fi
 }
 
