@@ -60,9 +60,6 @@ write_batch () {
         return 0
     fi
 
-    BATCH=$(echo "$rows" |\
-        format_row |\
-        jq -s .)
     if [[ $(cat $AWS_CURSOR_FILE) ]]; then
         sequence_token="--sequence-token=$(cat $AWS_CURSOR_FILE)"
     else
@@ -73,7 +70,7 @@ write_batch () {
         --log-group-name="$LOG_GROUP_NAME" \
         --log-stream-name="$LOG_STREAM_NAME" \
         "$sequence_token" \
-        --log-events="$BATCH" |\
+        --log-events 'file://'<(echo "$rows" | format_row | jq -s .)|\
         jq -r ".nextSequenceToken" > "$AWS_CURSOR_FILE"
 }
 
