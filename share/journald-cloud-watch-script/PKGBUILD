@@ -11,7 +11,7 @@ depends=('aws-cli' 'bash' 'jq')
 source=(tail-journald
         journald-cloud-watch-script.service
         journald-cloud-watch-script.install)
-md5sums=('83e4e0bf9b02fa5eec2e692de362cf29'
+md5sums=('b561e5e0aab3eb3c44f6919e2acec2b3'
          '553401317d43abbd4b0147b7bec5820d'
          '7a25597c93a176efede06b2c551ab534')
 install=journald-cloud-watch-script.install

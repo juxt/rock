@@ -9,7 +9,7 @@
         {
             "type": "amazon-ebs",
             "region": "eu-west-2",
-            "source_ami": "ami-210be846",
+            "source_ami": "ami-f57a9292",
             "instance_type": "t2.small",
             "ssh_username": "root",
             "ami_name": "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"

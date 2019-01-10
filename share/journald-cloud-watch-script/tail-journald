@@ -50,7 +50,17 @@ journal_cursor_rows () {
 }
 
 format_row () {
-    jq "{timestamp: $(date +%s%3N), message: @json}"
+    jq '
+    # A fork of jq 1.6 walk which also walks over the keys
+    def walk(f):
+      . as $in
+      | if type == "object" then
+          reduce keys[] as $key
+          ( {}; . + { ($key | walk(f)):  ($in[$key] | walk(f)) } ) | f
+      elif type == "array" then map( walk(f) ) | f
+      else f
+      end;
+  {timestamp: '"$(date +%s%3N)"', message: @json "\(walk(if type == "string" then .[:16384] else . end))"}'
 }
 
 write_batch () {
@@ -65,6 +75,7 @@ write_batch () {
     else
         sequence_token=""
     fi
+
     aws logs put-log-events \
         --region="$AWS_REGION" \
         --log-group-name="$LOG_GROUP_NAME" \
