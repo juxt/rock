@@ -1,0 +1,25 @@
+pkgname=aws-cfn-bootstrap
+pkgver=1.4_30
+pkgrel=1
+pkgdesc=""
+arch=('i686' 'x86_64')
+url='https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html'
+license=('Apache-2.0')
+# TODO: python2-pystache is only in the AUR, how do we handle that?
+depends=('python2-pystache')
+# >=1.5.2,<2.0
+optdepends=('python2-daemon: Support for running cfn-hup as a daemon')
+makedepends=('python2-setuptools')
+source=(https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-${pkgver//_/-}.tar.gz)
+md5sums=('5715176852b84761c63097f2778c99e4')
+
+build() {
+  cd $pkgname-${pkgver/_*/}
+  python2 setup.py build
+}
+
+package() {
+  cd $pkgname-${pkgver/_*/}
+  python2 setup.py install --root="$pkgdir" --optimize=1
+  sed -i "s|#!/usr/bin/env python$|#!/usr/bin/env python2|" ${pkgdir}/usr/bin/*
+}

@@ -64,6 +64,11 @@ chmod -R 774 "$PKG_DIR"
 # containing PKGBUILD files.
 cd "$PKG_DIR"
 
+# Dependencies from AUR of our packages need fetching in order to be available
+# for builds.  Currently there doesn't appear to be a way to automatically get
+# list.
+echo 'python2-pystache' | su --preserve-environment -c 'aurfetch' rock
+
 # Packages in AUR etc. have both a `PKGBUILD` file and a `.SRCINFO`. As we don't
 # want to have to remember to create this src info file everytime we edit a
 # package definition we create the files only when we need them.
@@ -80,7 +85,8 @@ build_pkgs
 install_pkgs \
     codedeploy-agent \
     journald-cloud-watch-script \
-    systemd-cloud-watch
+    systemd-cloud-watch \
+    aws-cfn-bootstrap
 
 # To install any packages from the AUR can now be done like so:
 #     aursync <pkg0> <pkg1> <pkg2> ...

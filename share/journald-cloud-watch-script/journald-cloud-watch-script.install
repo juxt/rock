@@ -1,0 +1,13 @@
+post_install() {
+  if ! getent group cw-journald >/dev/null; then
+    groupadd cw-journald
+  fi
+  if ! getent passwd cw-journald >/dev/null; then
+    useradd -c 'CloudWatch Journald Script User' -g cw-journald -G systemd-journal -s /bin/nologin cw-journald
+    passwd -l cw-journald >/dev/null
+  fi
+  if [ ! -d '/var/lib/journald-cloud-watch-script' ]; then
+    mkdir -p '/var/lib/journald-cloud-watch-script'
+    chown cw-journald:cw-journald '/var/lib/journald-cloud-watch-script'
+  fi
+}
