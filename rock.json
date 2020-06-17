@@ -11,13 +11,14 @@
             "region": "eu-west-1",
             "source_ami": "ami-0c5c7b7e492fab0b6",
             "instance_type": "t2.small",
-            "ssh_username": "root",
+            "ssh_username": "arch",
             "ami_name": "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"
         }
     ],
     "provisioners": [
         {
             "type": "shell",
+            "execute_command": "sudo bash -c '{{ .Vars }} {{ .Path }}'",
             "script": "scripts/remove-llmnr.sh"
         },
         {
@@ -37,6 +38,7 @@
         },
         {
             "type": "shell",
+            "execute_command": "sudo bash -c '{{ .Vars }} {{ .Path }}'",
             "script": "scripts/install-base.sh",
             "environment_vars": [
                 "PKG_DIR={{user `juxt_pkg_dir`}}",
@@ -50,6 +52,7 @@
         },
         {
             "type": "shell",
+            "execute_command": "sudo bash -c '{{ .Vars }} {{ .Path }}'",
             "script": "scripts/install-custom.sh",
             "environment_vars": [
                 "PKG_DIR={{user `juxt_pkg_dir`}}",
@@ -58,6 +61,7 @@
         },
         {
             "type": "shell",
+            "execute_command": "sudo bash -c '{{ .Vars }} {{ .Path }}'",
             "script": "scripts/install-clojure.sh"
         }
     ],
