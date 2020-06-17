@@ -28,35 +28,40 @@
    "destination" "/tmp/sudoers"}
   {"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
-   "inline" ["cp /tmp/sudoers /etc/sudoers"]}
-
-  {"type" "file"
-   "source" "etc/makepkg.conf"
-   "destination" "/tmp/makepkg.conf"}
-  {"type" "shell"
-   "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
-   "inline" ["cp /tmp/makepkg.conf /etc/makepkg.conf"]}
+   "inline" ["cp /tmp/sudoers /etc/sudoers"
+             "chown root:root /etc/sudoers"
+             "chmod 440 /etc/sudoers"]}
 
   {"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
-   "script" "scripts/install-base.sh"
+   "script" "scripts/install-base.sh"}
+
+  #_{"type" "file"
+     "source" "etc/makepkg.conf"
+     "destination" "/tmp/makepkg.conf"}
+  #_{"type" "shell"
+   "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
+   "inline" ["cp /tmp/makepkg.conf /etc/makepkg.conf"
+             "chown root:root /etc/makepkg.conf"
+             "chmod 644 /etc/makepkg.conf"]}
+  #_{"type" "shell"
+   "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
+   "script" "scripts/prepare-private-repo.sh"
    "environment_vars"
    ["PKG_DIR={{user `juxt_pkg_dir`}}"
     "REPO_DIR={{user `juxt_repo_dir`}}"]}
-
-  {"type" "shell"
+  #_{"type" "shell"
    "inline" ["mkdir -p /tmp{{user `juxt_pkg_dir`}}"]}
-  {"type" "file"
+  #_{"type" "file"
    "source" "share/"
    "destination" "/tmp{{user `juxt_pkg_dir`}}"}
-  {"type" "shell"
+  #_{"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
    "inline" ["cp -r /tmp{{user `juxt_pkg_dir`}}/* {{user `juxt_pkg_dir`}}"]}
-
-  {"type" "shell"
+  #_{"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
    "inline" ["mkdir -p {{user `juxt_repo_dir`}}"]}
-  {"type" "shell"
+  #_{"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
    "script" "scripts/install-custom.sh"
    "environment_vars"
@@ -65,7 +70,16 @@
 
   {"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
-   "script" "scripts/install-clojure.sh"}]
+   "script" "scripts/install-clojure.sh"}
+
+  {"type" "shell"
+   "script" "scripts/install-yay.sh"}
+
+  {"type" "shell"
+   "script" "scripts/install-bb.sh"}
+
+  {"type" "shell"
+   "script" "scripts/install-novnc.sh"}]
 
  "post-processors"
- ["vagrant"]}
+ [#_"vagrant"]}
