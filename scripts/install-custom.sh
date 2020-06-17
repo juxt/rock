@@ -29,7 +29,11 @@ cd "$AURUTILS_DIR"
 install_pkgs \
     jq \
     pacutils \
-    repose
+    repose \
+    expac \
+    diffstat \
+    parallel
+
 
 # You can't run makepkg as root, so we need to demote ourselves to a regular
 # user.
