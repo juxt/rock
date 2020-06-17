@@ -9,3 +9,4 @@
 /share/**/src
 /terraform/.terraform
 /terraform/proposed.plan
+rock.json
