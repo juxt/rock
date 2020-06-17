@@ -1,8 +1,8 @@
-.PHONY: all debug
+.PHONY: all clean debug
 
 COMMIT_REF=$(shell git rev-parse --short HEAD)
 
-all: 	clean
+all: 	clean rock.json
 	packer build \
 		-var "commit_ref=$(COMMIT_REF)" \
 		rock.json
@@ -13,7 +13,11 @@ all: 	clean
 clean:
 	rm -rf share/*/{src,pkg}
 
-debug:
+rock.json:	rock.edn
+	./edn2json $< > $@
+
+
+debug:	rock.json
 	packer build -debug \
 		-var "commit_ref=$(COMMIT_REF)" \
 		rock.json

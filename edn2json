@@ -1,0 +1,8 @@
+#_( ; Allow this script to be executed directly -*-clojure-*-
+   "exec" "bb" -o "$0" "$@"
+   )
+
+(require '[cheshire.core :as json])
+
+(let [[edn] *command-line-args*]
+  (println (json/generate-string (edn/read-string (slurp (or edn *in*))))))
