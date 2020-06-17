@@ -3,7 +3,7 @@
 COMMIT_REF=$(shell git rev-parse --short HEAD)
 
 all: 	clean
-	packer-io build \
+	packer build \
 		-var "commit_ref=$(COMMIT_REF)" \
 		rock.json
 
@@ -14,7 +14,7 @@ clean:
 	rm -rf share/*/{src,pkg}
 
 debug:
-	packer-io build -debug \
+	packer build -debug \
 		-var "commit_ref=$(COMMIT_REF)" \
 		rock.json
 
