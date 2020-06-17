@@ -6,8 +6,7 @@ set -eux
 # Utils
 
 build_pkgs () {
-    su --preserve-environment \
-        -c 'yes | aurbuild -d juxt -a <(aurqueue *)' rock
+    su -c 'yes | aur build -d juxt -a <(aur depends *)' rock
 }
 
 install_pkgs () {
