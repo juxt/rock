@@ -7,7 +7,7 @@ set -eux
 
 pacman --noconfirm -Sy \
     clojure \
-    jdk8-openjdk
+    jdk11-openjdk
 
 # -----------------------------------------------------------------------------
 # AUR packages
