@@ -6,7 +6,7 @@
  "builders"
  [{"type" "amazon-ebs"
    "region" "eu-west-2"
-   "source_ami" "ami-05fb9c1322f5e3f78"
+   "source_ami" "ami-0bb11eee7052e5560"
    "instance_type" "c4.large"
    "ssh_username" "arch"
    "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
