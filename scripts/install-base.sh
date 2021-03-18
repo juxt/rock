@@ -18,4 +18,5 @@ pacman --noconfirm -Syu \
     unzip \
     wget \
     man-db \
-    vim
+    vim \
+    vi
