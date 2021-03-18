@@ -5,8 +5,9 @@
 
  "builders"
  [{"type" "amazon-ebs"
-   "region" "eu-west-2"
-   "source_ami" "ami-0bb11eee7052e5560"
+   "region" "us-east-2"
+   ;; Pick ebs hvm x86_64 stable, check region matches
+   "source_ami" "ami-02d88189f83c3f8cb"
    "instance_type" "c4.large"
    "ssh_username" "arch"
    "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
@@ -78,8 +79,12 @@
   {"type" "shell"
    "script" "scripts/install-bb.sh"}
 
+  #_{"type" "shell"
+   "script" "scripts/install-novnc.sh"}
+
   {"type" "shell"
-   "script" "scripts/install-novnc.sh"}]
+   "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
+   "script" "scripts/install-nodejs.sh"}]
 
  "post-processors"
  [#_"vagrant"]}

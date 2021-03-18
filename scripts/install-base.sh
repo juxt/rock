@@ -17,4 +17,5 @@ pacman --noconfirm -Syu \
     termite-terminfo \
     unzip \
     wget \
-    man-db
+    man-db \
+    vim
