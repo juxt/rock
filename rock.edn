@@ -87,7 +87,7 @@
   #_{"type" "shell"
    "script" "scripts/install-novnc.sh"}
 
-  {"type" "shell"
+  #_{"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
    "script" "scripts/install-nodejs.sh"}]
 
