@@ -14,9 +14,10 @@ set -eux
 pacman --noconfirm -Syu \
     aws-cli \
     git \
-    termite-terminfo \
+    alacritty \
     unzip \
     wget \
     man-db \
     vim \
-    vi
+    vi \
+    fakeroot

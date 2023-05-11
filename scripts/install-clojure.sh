@@ -8,7 +8,7 @@ set -eux
 pacman --noconfirm -Sy \
        clojure \
        rlwrap \
-       jdk11-openjdk
+       jdk20-openjdk
 
 # -----------------------------------------------------------------------------
 # AUR packages

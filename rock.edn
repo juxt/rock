@@ -5,10 +5,11 @@
 
  "builders"
  [{"type" "amazon-ebs"
-   "region" "us-east-2"
-   ;; Pick ebs hvm x86_64 stable, check region matches
-   "source_ami" "ami-02d88189f83c3f8cb"
-   "instance_type" "c4.large"
+   "region" "eu-west-2"
+   ;; Seems that Arch EC2 optimized isn't doesn't respond to SSH, so
+   ;; using the Arch Std kernel instead for now.
+   "source_ami" "ami-01b47269638a6aad8"
+   "instance_type" "t2.large"
    "ssh_username" "arch"
    "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
 
@@ -32,6 +33,10 @@
    "inline" ["cp /tmp/sudoers /etc/sudoers"
              "chown root:root /etc/sudoers"
              "chmod 440 /etc/sudoers"]}
+
+  {"type" "shell"
+   "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
+   "script" "scripts/pacman-key.sh"}
 
   {"type" "shell"
    "execute_command" "sudo bash -c '{{ .Vars }} {{ .Path }}'"
@@ -76,7 +81,7 @@
   {"type" "shell"
    "script" "scripts/install-yay.sh"}
 
-  {"type" "shell"
+  #_{"type" "shell"
    "script" "scripts/install-bb.sh"}
 
   #_{"type" "shell"
