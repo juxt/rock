@@ -81,7 +81,7 @@
   {"type" "shell"
    "script" "scripts/install-yay.sh"}
 
-  #_{"type" "shell"
+  {"type" "shell"
    "script" "scripts/install-bb.sh"}
 
   #_{"type" "shell"

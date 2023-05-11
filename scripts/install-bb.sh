@@ -2,4 +2,4 @@
 
 set -eux
 
-yay --answerdiff None --answerclean None -S babashka-bin
+yay --answerdiff None --answerclean None --noconfirm -S babashka-bin
