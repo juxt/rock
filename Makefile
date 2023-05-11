@@ -5,6 +5,7 @@ COMMIT_REF=$(shell git rev-parse --short HEAD)
 all: 	clean rock.json
 	packer build \
 		-var "commit_ref=$(COMMIT_REF)" \
+		-on-error=ask \
 		rock.json
 
 # We need to clean up any build artefacts in the package directories because
