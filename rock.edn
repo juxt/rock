@@ -1,5 +1,8 @@
+;; See https://wiki.archlinux.org/title/Arch_Linux_AMIs_for_Amazon_Web_Services
 {:region "eu-west-2"
  :ami-type "ec2"
+ ;; Always use a Nitro-based image when using EC2 optimized AMIs
+ :instance-type "m5a.xlarge"
 
  :packer-config
  {"variables"
@@ -12,7 +15,7 @@
     "region" #ref [:region]
     "source_ami" #juxt.rock/latest-ami {:region #ref [:region]
                                         :type #ref [:ami-type]}
-    "instance_type" "m5a.xlarge"
+    "instance_type" #ref [:instance-type]
     "ssh_username" "arch"
     "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
 
