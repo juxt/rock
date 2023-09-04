@@ -20,19 +20,19 @@
                          (= type (get ami "type"))))
           amis))))))
 
-
 (defmethod aero/reader 'juxt.rock/latest-ami
   [_ _ args]
-  (when-let [ami-info (get-ami-info args)]
-    (get ami-info "ami")))
+  (or
+   (when-let [ami-info (get-ami-info args)]
+     (get ami-info "ami"))
+   "ERROR"))
 
 (defn generate-packer-config []
   (let [destfile (io/file "rock.json")]
     (spit
      destfile
      (->
-      "rock.edn"
-      (aero/read-config {})
+      (aero/read-config "rock.edn" {})
       (get :packer-config)
       (json/generate-string {:pretty true})))
     (println "Generated packer configuration to" (.getAbsolutePath destfile))))
