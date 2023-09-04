@@ -10,8 +10,8 @@
    ;; using the Arch Std kernel instead for now.
    ;; Old arch images are not maintained. Current list available at
    ;; https://wiki.archlinux.org/title/Arch_Linux_AMIs_for_Amazon_Web_Services
-   "source_ami" "ami-013df715cca13bc87"
-   "instance_type" "t2.large"
+   "source_ami" "ami-0950c2b4bad5391b0"
+   "instance_type" "m5a.xlarge"
    "ssh_username" "arch"
    "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
 
