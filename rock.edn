@@ -9,7 +9,7 @@
 
   "builders"
   [{"type" "amazon-ebs"
-    "region" "eu-west-2"
+    "region" #ref [:region]
     "source_ami" #juxt.rock/latest-ami {:region #ref [:region]
                                         :type #ref [:ami-type]}
     "instance_type" "m5a.xlarge"
