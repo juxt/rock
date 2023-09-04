@@ -11,10 +11,10 @@ all: 	clean rock.json
 # they won't have right permissions, and may conflict with what we want to build
 # inside the VM.
 clean:
-	rm -rf share/*/{src,pkg}
+	rm -rf share/*/{src,pkg} rock.json
 
 rock.json:	rock.edn
-	./edn2json $< > $@
+	bb generate-packer-config
 
 
 debug:	rock.json
