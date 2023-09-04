@@ -12,7 +12,7 @@ set -eux
 # man-db: manual pages
 
 pacman --noconfirm -Syu \
-    aws-cli \
+    aws-cli-v2 \
     git \
     alacritty \
     unzip \
