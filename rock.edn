@@ -8,8 +8,8 @@
    "region" "eu-west-2"
    ;; Seems that Arch EC2 optimized isn't doesn't respond to SSH, so
    ;; using the Arch Std kernel instead for now.
-   "source_ami" "ami-01b47269638a6aad8"
-   "instance_type" "t2.large"
+   "source_ami" "ami-0950c2b4bad5391b0"
+   "instance_type" "m5a.xlarge"
    "ssh_username" "arch"
    "ami_name" "juxt-rock-{{user `commit_ref`}}-{{timestamp}}"}]
 
