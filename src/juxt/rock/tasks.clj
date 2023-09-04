@@ -5,7 +5,6 @@
    [aero.core :as aero]
    [babashka.http-client :as http]
    [cheshire.core :as json]
-
    [clojure.java.io :as io]))
 
 (defn get-ami-info [{:keys [region type]}]
