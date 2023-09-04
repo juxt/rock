@@ -8,6 +8,8 @@
    "region" "eu-west-2"
    ;; Seems that Arch EC2 optimized isn't doesn't respond to SSH, so
    ;; using the Arch Std kernel instead for now.
+   ;; Old arch images are not maintained. Current list available at
+   ;; https://wiki.archlinux.org/title/Arch_Linux_AMIs_for_Amazon_Web_Services
    "source_ami" "ami-0950c2b4bad5391b0"
    "instance_type" "m5a.xlarge"
    "ssh_username" "arch"
